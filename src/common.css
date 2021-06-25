@@ -1,0 +1,7 @@
+.nav {
+  color: currentColor;
+}
+
+.nav__active {
+  color: salmon;
+}
