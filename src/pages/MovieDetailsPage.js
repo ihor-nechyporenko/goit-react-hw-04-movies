@@ -16,8 +16,8 @@ class MovieDetailsPage extends Component {
     poster_path: null,
     release_date: '',
     vote_average: null,
-    credits: {},
-    reviews: {},
+    credits: null,
+    reviews: null,
   };
 
   async componentDidMount() {

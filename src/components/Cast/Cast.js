@@ -1,5 +1,7 @@
 import { Component } from 'react';
 
+import defaultImg from './default-img.png';
+
 class Cast extends Component {
   state = {};
 
@@ -17,7 +19,11 @@ class Cast extends Component {
         <ul>
           {cast.map(({ id, character, name, profile_path }) => (
             <li key={id}>
-              <img src={`${IMG_URL}${profile_path}`} alt={name} width="100" />
+              <img
+                src={profile_path ? `${IMG_URL}${profile_path}` : defaultImg}
+                alt={name}
+                width="100"
+              />
               <p>{name}</p>
               <p>Character: {character}</p>
             </li>

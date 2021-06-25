@@ -6,11 +6,13 @@ class Reviews extends Component {
   render() {
     const { results } = this.props.reviews;
 
-    console.log(results);
-
     return (
       <>
         <h1>Reviews</h1>
+
+        {results.length === 0 && (
+          <h2>We don't have any reviews for this movie</h2>
+        )}
 
         <ul>
           {results.map(result => (

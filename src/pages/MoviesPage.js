@@ -36,9 +36,6 @@ class MoviesPage extends Component {
     this.setState({
       movies: result,
     });
-
-    console.log(result);
-    console.log(searchQuery);
   }
 
   render() {
