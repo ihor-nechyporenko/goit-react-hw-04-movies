@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
+import routes from '../routes';
 
 const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -32,6 +33,18 @@ class MovieDetailsPage extends Component {
     this.setState({ ...result });
   }
 
+  handleGoBack = () => {
+    const { history, location } = this.props;
+
+    // if (location.state && location.state.from) {
+    //   return history.push(location.state.from);
+    // };
+
+    // history.push(routes.movies);
+
+    history.push(location?.state?.from || routes.movies);
+  };
+
   render() {
     const {
       title,
@@ -43,14 +56,18 @@ class MovieDetailsPage extends Component {
       credits,
       reviews,
     } = this.state;
+
     const { match } = this.props;
 
     const IMG_URL = 'https://image.tmdb.org/t/p/original/';
-
     const releseYear = release_date.slice(0, 4);
 
     return (
       <>
+        <button type="button" onClick={this.handleGoBack}>
+          Go back
+        </button>
+
         <h1>Movie details {match.params.movieId}</h1>
 
         <img src={`${IMG_URL}${poster_path}`} alt={title} width="200" />
