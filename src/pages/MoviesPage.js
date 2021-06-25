@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchBar from '../components/SearchBar';
+import MovieList from '../components/MovieList';
 
 const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -28,6 +28,7 @@ class MoviesPage extends Component {
 
   async fetchMovies() {
     const { searchQuery } = this.state;
+    const { history, location } = this.props;
 
     const result = await axios
       .get(`${BASE_URL}search/movie?api_key=${API_KEY}&query=${searchQuery}`)
@@ -35,6 +36,11 @@ class MoviesPage extends Component {
 
     this.setState({
       movies: result,
+    });
+
+    history.push({
+      pathname: location.pathname,
+      search: `search=${searchQuery}`,
     });
   }
 
@@ -46,13 +52,7 @@ class MoviesPage extends Component {
         <h1>Movies Page</h1>
         <SearchBar onSubmit={this.onChangeQuery} />
 
-        <ul>
-          {movies.map(({ id, title }) => (
-            <li key={id}>
-              <Link to={`${this.props.match.url}/${id}`}>{title}</Link>
-            </li>
-          ))}
-        </ul>
+        <MovieList movies={movies} />
       </>
     );
   }

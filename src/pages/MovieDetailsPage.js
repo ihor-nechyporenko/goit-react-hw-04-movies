@@ -30,8 +30,6 @@ class MovieDetailsPage extends Component {
       .then(response => response.data);
 
     this.setState({ ...result });
-
-    console.log(result);
   }
 
   render() {

@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+
+import MovieList from '../components/MovieList';
 
 const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -18,8 +19,6 @@ class HomePage extends Component {
     this.setState({
       trendingMovies: response.data.results,
     });
-
-    console.log(response.data.results);
   }
 
   render() {
@@ -28,13 +27,8 @@ class HomePage extends Component {
     return (
       <>
         <h1>Most trending movies this week</h1>
-        <ul>
-          {trendingMovies.map(({ id, title }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`}>{title}</Link>
-            </li>
-          ))}
-        </ul>
+
+        <MovieList movies={trendingMovies} path={'movies'} />
       </>
     );
   }
