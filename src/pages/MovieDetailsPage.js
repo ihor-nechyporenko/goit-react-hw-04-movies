@@ -1,10 +1,11 @@
 import { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import routes from '../routes';
+import Navigation from '../components/Navigation';
 
 const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -42,7 +43,7 @@ class MovieDetailsPage extends Component {
 
     // history.push(routes.movies);
 
-    history.push(location?.state?.from || routes.movies);
+    history.push(location?.state?.from || routes.home);
   };
 
   render() {
@@ -87,7 +88,12 @@ class MovieDetailsPage extends Component {
 
         <p>Additional information</p>
 
-        <ul>
+        <Navigation
+          route1={{ link: `${match.url}/cast`, label: 'Cast' }}
+          route2={{ link: `${match.url}/reviews`, label: 'Reviews' }}
+        />
+
+        {/* <ul>
           <li>
             <NavLink
               to={`${match.url}/cast`}
@@ -106,7 +112,7 @@ class MovieDetailsPage extends Component {
               Reviews
             </NavLink>
           </li>
-        </ul>
+        </ul> */}
 
         <Route
           path={`${match.url}/cast`}

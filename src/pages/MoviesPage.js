@@ -1,17 +1,25 @@
 import { Component } from 'react';
-import axios from 'axios';
+import queryString from 'query-string';
 
 import SearchBar from '../components/SearchBar';
 import MovieList from '../components/MovieList';
-
-const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
-const BASE_URL = 'https://api.themoviedb.org/3/';
+import api from '../service/movies-api';
 
 class MoviesPage extends Component {
   state = {
     searchQuery: '',
     movies: [],
   };
+
+  componentDidMount() {
+    const searchParam = queryString.parse(this.props.location.search).search;
+    console.log(searchParam);
+
+    if (searchParam) {
+      this.onChangeQuery(searchParam);
+      this.fetchMovies();
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
@@ -26,16 +34,14 @@ class MoviesPage extends Component {
     });
   };
 
-  async fetchMovies() {
+  fetchMovies() {
     const { searchQuery } = this.state;
     const { history, location } = this.props;
 
-    const result = await axios
-      .get(`${BASE_URL}search/movie?api_key=${API_KEY}&query=${searchQuery}`)
-      .then(response => response.data.results);
-
-    this.setState({
-      movies: result,
+    api.fetchSearchingMovies(searchQuery).then(response => {
+      this.setState({
+        movies: response.data.results,
+      });
     });
 
     history.push({

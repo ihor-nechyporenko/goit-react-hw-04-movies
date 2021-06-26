@@ -1,10 +1,16 @@
-// import axios from "axios";
+import axios from 'axios';
 
-// const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
-// const BASE_URL = 'https://api.themoviedb.org/3/';
+const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
+const BASE_URL = 'https://api.themoviedb.org/3/';
 
-// const fetchMovies = ({searchQuery = ''}) => {
-//     return axios.get(`${BASE_URL}search/${searchQuery}?api_key=${API_KEY}`).then(response => response.result);
-// };
+const fetchTrendingMovies = () => {
+  return axios.get(`${BASE_URL}trending/movie/week?api_key=${API_KEY}`);
+};
 
-// export default { fetchMovies };
+const fetchSearchingMovies = searchQuery => {
+  return axios.get(
+    `${BASE_URL}search/movie?api_key=${API_KEY}&query=${searchQuery}`,
+  );
+};
+
+export default { fetchTrendingMovies, fetchSearchingMovies };

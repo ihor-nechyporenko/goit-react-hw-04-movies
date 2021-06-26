@@ -10,8 +10,6 @@ class Cast extends Component {
 
     const IMG_URL = 'https://image.tmdb.org/t/p/original/';
 
-    console.log(cast);
-
     return (
       <>
         <h1>Cast</h1>

@@ -1,23 +1,20 @@
 import { Component } from 'react';
-import axios from 'axios';
 
 import MovieList from '../components/MovieList';
-
-const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
-const BASE_URL = 'https://api.themoviedb.org/3/';
+import api from '../service/movies-api';
 
 class HomePage extends Component {
   state = {
     trendingMovies: [],
   };
 
-  async componentDidMount() {
-    const response = await axios.get(
-      `${BASE_URL}trending/movie/week?api_key=${API_KEY}`,
-    );
+  componentDidMount() {
+    this.setState({ isLoading: true });
 
-    this.setState({
-      trendingMovies: response.data.results,
+    api.fetchTrendingMovies().then(response => {
+      this.setState({
+        trendingMovies: response.data.results,
+      });
     });
   }
 

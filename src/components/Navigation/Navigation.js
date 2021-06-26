@@ -1,27 +1,21 @@
 import { NavLink } from 'react-router-dom';
 
-import routes from '../../routes';
-
-const Navigation = () => (
+const Navigation = ({ route1, route2 }) => (
   <nav>
     <ul>
       <li>
         <NavLink
           exact
-          to={routes.home}
+          to={route1.link}
           className="nav"
           activeClassName="nav__active"
         >
-          Home
+          {route1.label}
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to={routes.movies}
-          className="nav"
-          activeClassName="nav__active"
-        >
-          Movies
+        <NavLink to={route2.link} className="nav" activeClassName="nav__active">
+          {route2.label}
         </NavLink>
       </li>
     </ul>
