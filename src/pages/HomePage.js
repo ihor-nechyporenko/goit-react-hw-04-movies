@@ -9,8 +9,6 @@ class HomePage extends Component {
   };
 
   componentDidMount() {
-    this.setState({ isLoading: true });
-
     api.fetchTrendingMovies().then(response => {
       this.setState({
         trendingMovies: response.data.results,

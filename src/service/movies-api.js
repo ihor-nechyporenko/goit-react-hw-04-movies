@@ -13,4 +13,10 @@ const fetchSearchingMovies = searchQuery => {
   );
 };
 
-export default { fetchTrendingMovies, fetchSearchingMovies };
+const fetchMovieDetails = movieId => {
+  return axios.get(
+    `${BASE_URL}movie/${movieId}?api_key=${API_KEY}&append_to_response=reviews,credits`,
+  );
+};
+
+export default { fetchTrendingMovies, fetchSearchingMovies, fetchMovieDetails };

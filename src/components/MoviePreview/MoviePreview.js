@@ -1,5 +1,9 @@
 const MoviePreview = ({ title, poster_path }) => {
-  const IMG_URL = 'https://image.tmdb.org/t/p/original/';
+  let IMG_URL = 'https://image.tmdb.org/t/p/original/';
+
+  if (!poster_path) {
+    IMG_URL = '';
+  }
 
   return (
     <div>

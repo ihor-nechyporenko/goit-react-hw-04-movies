@@ -1,14 +1,11 @@
 import { Component } from 'react';
 import { Route } from 'react-router-dom';
-import axios from 'axios';
 
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import routes from '../routes';
 import Navigation from '../components/Navigation';
-
-const API_KEY = '23ecc496bfc83d88818c3ec8956bc65d';
-const BASE_URL = 'https://api.themoviedb.org/3/';
+import api from '../service/movies-api';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -25,23 +22,13 @@ class MovieDetailsPage extends Component {
   async componentDidMount() {
     const { movieId } = this.props.match.params;
 
-    const result = await axios
-      .get(
-        `${BASE_URL}movie/${movieId}?api_key=${API_KEY}&append_to_response=reviews,credits`,
-      )
-      .then(response => response.data);
-
-    this.setState({ ...result });
+    api.fetchMovieDetails(movieId).then(response => {
+      this.setState({ ...response.data });
+    });
   }
 
   handleGoBack = () => {
     const { history, location } = this.props;
-
-    // if (location.state && location.state.from) {
-    //   return history.push(location.state.from);
-    // };
-
-    // history.push(routes.movies);
 
     history.push(location?.state?.from || routes.home);
   };
@@ -60,7 +47,12 @@ class MovieDetailsPage extends Component {
 
     const { match } = this.props;
 
-    const IMG_URL = 'https://image.tmdb.org/t/p/original/';
+    // fix 404 error in console
+    let IMG_URL = 'https://image.tmdb.org/t/p/original/';
+    if (!poster_path) {
+      IMG_URL = '';
+    }
+
     const releseYear = release_date.slice(0, 4);
 
     return (
@@ -92,27 +84,6 @@ class MovieDetailsPage extends Component {
           route1={{ link: `${match.url}/cast`, label: 'Cast' }}
           route2={{ link: `${match.url}/reviews`, label: 'Reviews' }}
         />
-
-        {/* <ul>
-          <li>
-            <NavLink
-              to={`${match.url}/cast`}
-              className="nav"
-              activeClassName="nav__active"
-            >
-              Cast
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={`${match.url}/reviews`}
-              className="nav"
-              activeClassName="nav__active"
-            >
-              Reviews
-            </NavLink>
-          </li>
-        </ul> */}
 
         <Route
           path={`${match.url}/cast`}
