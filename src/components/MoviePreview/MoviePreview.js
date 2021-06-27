@@ -13,7 +13,6 @@ const MoviePreview = ({ title, poster_path }) => {
         className={styles.item__img}
         src={`${IMG_URL}${poster_path}`}
         alt={title}
-        width="100"
       />
       <p className={styles.item__title}>{title}</p>
     </>

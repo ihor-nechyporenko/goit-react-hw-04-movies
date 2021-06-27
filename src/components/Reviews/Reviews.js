@@ -11,7 +11,9 @@ class Reviews extends Component {
     return (
       <>
         {results.length === 0 && (
-          <h2>We don't have any reviews for this movie</h2>
+          <p className={styles.author}>
+            We don't have any reviews for this movie
+          </p>
         )}
 
         <ul className={styles.list}>

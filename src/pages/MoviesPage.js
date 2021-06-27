@@ -13,7 +13,6 @@ class MoviesPage extends Component {
 
   componentDidMount() {
     const searchParam = queryString.parse(this.props.location.search).search;
-    console.log(searchParam);
 
     if (searchParam) {
       this.onChangeQuery(searchParam);

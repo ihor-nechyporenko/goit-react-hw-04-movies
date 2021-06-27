@@ -14,12 +14,11 @@ class Cast extends Component {
     return (
       <ul className={styles.list}>
         {cast.map(({ id, character, name, profile_path }) => (
-          <li className={styles.item} key={id}>
+          <li className={styles.item} key={String(id)}>
             <img
               className={styles.item__img}
               src={profile_path ? `${IMG_URL}${profile_path}` : defaultImg}
               alt={name}
-              width="100"
             />
             <p className={styles.name}>{name}</p>
             <p className={styles.character}>Character:</p>

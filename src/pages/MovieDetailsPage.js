@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
@@ -83,7 +84,7 @@ class MovieDetailsPage extends Component {
               </p>
               <div className={styles.genres__thumb}>
                 {genres.map(({ id, name }) => (
-                  <li key={id}>{name}</li>
+                  <li key={String(id)}>{name}</li>
                 ))}
               </div>
             </ul>
@@ -109,5 +110,46 @@ class MovieDetailsPage extends Component {
     );
   }
 }
+
+MovieDetailsPage.defaultProps = {
+  overview: '',
+  poster_path: '',
+  profile_path: '',
+};
+
+MovieDetailsPage.propTypes = {
+  title: PropTypes.string,
+  overview: PropTypes.string,
+  poster_path: PropTypes.string,
+  release_date: PropTypes.string,
+  vote_average: PropTypes.number,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ),
+  reviews: PropTypes.shape({
+    results: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        author_details: PropTypes.shape({
+          username: PropTypes.string.isRequired,
+        }),
+      }),
+    ),
+  }),
+  credits: PropTypes.shape({
+    cast: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        character: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        profile_path: PropTypes.string,
+      }),
+    ),
+  }),
+};
 
 export default MovieDetailsPage;
