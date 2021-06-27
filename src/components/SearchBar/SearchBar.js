@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import styles from './SearchBar.module.css';
+
 class SearchBar extends Component {
   state = {
     query: '',
@@ -25,12 +27,13 @@ class SearchBar extends Component {
 
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
-          <button type="submit">
+        <form className={styles.form} onSubmit={this.handleSubmit}>
+          <button className={styles.button} type="submit">
             <span>Search</span>
           </button>
 
           <input
+            className={styles.input}
             type="text"
             autoComplete="off"
             autoFocus

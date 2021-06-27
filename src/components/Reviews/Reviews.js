@@ -1,5 +1,7 @@
 import { Component } from 'react';
 
+import styles from './Reviews.module.css';
+
 class Reviews extends Component {
   state = {};
 
@@ -8,17 +10,17 @@ class Reviews extends Component {
 
     return (
       <>
-        <h1>Reviews</h1>
-
         {results.length === 0 && (
           <h2>We don't have any reviews for this movie</h2>
         )}
 
-        <ul>
+        <ul className={styles.list}>
           {results.map(result => (
-            <li key={result.id}>
-              <p>Author: {result.author_details.username}</p>
-              <p>{result.content}</p>
+            <li className={styles.item} key={result.id}>
+              <p className={styles.author}>
+                Author: {result.author_details.username}
+              </p>
+              <p className={styles.review}>{result.content}</p>
             </li>
           ))}
         </ul>

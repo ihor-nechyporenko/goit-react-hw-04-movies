@@ -1,9 +1,10 @@
 import { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
 
 import AppBar from './components/AppBar';
 import NotFoundPage from './pages/NotFoundPage';
+import Container from './components/Container';
+import Loader from './components/Loader';
 import routes from './routes';
 
 import './common.css';
@@ -21,14 +22,10 @@ const MoviesPage = lazy(() =>
 );
 
 const App = () => (
-  <>
+  <Container>
     <AppBar />
 
-    <Suspense
-      fallback={
-        <Loader type="ThreeDots" color="#00BFFF" height={100} width={100} />
-      }
-    >
+    <Suspense fallback={<Loader />}>
       <Switch>
         <Route exact path={routes.home} component={HomePage} />
         <Route path={routes.movieDetails} component={MovieDetailsPage} />
@@ -36,7 +33,7 @@ const App = () => (
         <Route component={NotFoundPage} />
       </Switch>
     </Suspense>
-  </>
+  </Container>
 );
 
 export default App;

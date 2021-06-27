@@ -55,9 +55,7 @@ class MoviesPage extends Component {
 
     return (
       <>
-        <h1>Movies Page</h1>
         <SearchBar onSubmit={this.onChangeQuery} />
-
         <MovieList movies={movies} />
       </>
     );

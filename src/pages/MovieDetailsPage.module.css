@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  padding: 20px 0;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+.poster {
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .poster {
+    width: 100%;
+  }
+}
+
+.thumb {
+  margin-left: 20px;
+}
+
+.thumb > p {
+  margin-bottom: 10px;
+}
+
+.accent {
+  font-weight: 700;
+}
+
+.genres {
+  padding: 0;
+  list-style: none;
+}
+
+.genres__title {
+  margin-bottom: 10px;
+}
+
+.genres__thumb {
+  display: flex;
+}
+
+.genres__thumb > li:not(:last-child) {
+  margin-right: 8px;
+}
+
+.additional__info {
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 20px;
+}

@@ -5,7 +5,10 @@ import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import routes from '../routes';
 import Navigation from '../components/Navigation';
+import Button from '../components/Button';
 import api from '../service/movies-api';
+
+import styles from './MovieDetailsPage.module.css';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -57,28 +60,37 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
-        <button type="button" onClick={this.handleGoBack}>
-          Go back
-        </button>
+        <Button onClick={this.handleGoBack} />
 
-        <h1>Movie details {match.params.movieId}</h1>
+        <div className={styles.container}>
+          <img
+            className={styles.poster}
+            src={`${IMG_URL}${poster_path}`}
+            alt={title}
+            width="200"
+          />
+          <div className={styles.thumb}>
+            <h2>
+              {title} ({releseYear})
+            </h2>
+            <p>User Score: {vote_average}</p>
+            <p className={styles.accent}>Overview</p>
+            <p>{overview}</p>
 
-        <img src={`${IMG_URL}${poster_path}`} alt={title} width="200" />
-        <h2>
-          {title} ({releseYear})
-        </h2>
-        <p>User Score: {vote_average}</p>
-        <p>Overview</p>
-        <p>{overview}</p>
+            <ul className={styles.genres}>
+              <p className={styles.accent + ' ' + styles.genres__title}>
+                Genres
+              </p>
+              <div className={styles.genres__thumb}>
+                {genres.map(({ id, name }) => (
+                  <li key={id}>{name}</li>
+                ))}
+              </div>
+            </ul>
+          </div>
+        </div>
 
-        <ul>
-          <p>Genres</p>
-          {genres.map(({ id, name }) => (
-            <li key={id}>{name}</li>
-          ))}
-        </ul>
-
-        <p>Additional information</p>
+        <p className={styles.additional__info}>Additional information</p>
 
         <Navigation
           route1={{ link: `${match.url}/cast`, label: 'Cast' }}

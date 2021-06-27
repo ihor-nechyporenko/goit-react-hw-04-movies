@@ -1,0 +1,13 @@
+.item__img {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.item__title {
+  margin: 10px 0;
+  text-align: center;
+  color: #212121;
+  font-weight: 700;
+}

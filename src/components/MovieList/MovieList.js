@@ -1,11 +1,12 @@
 import { Link, withRouter } from 'react-router-dom';
 
 import MoviePreview from '../MoviePreview';
+import styles from './MovieList.module.css';
 
 const MovieList = ({ movies, match, location, path = '' }) => (
-  <ul>
+  <ul className={styles.list}>
     {movies.map(({ id, title, poster_path }) => (
-      <li key={id}>
+      <li className={styles.item} key={id}>
         <Link
           to={{
             pathname: `${match.url}${path}/${id}`,

@@ -1,0 +1,13 @@
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.author {
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.list .item:not(:last-child) > .review {
+  margin-bottom: 15px;
+}

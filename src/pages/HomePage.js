@@ -3,6 +3,8 @@ import { Component } from 'react';
 import MovieList from '../components/MovieList';
 import api from '../service/movies-api';
 
+import styles from './HomePage.module.css';
+
 class HomePage extends Component {
   state = {
     trendingMovies: [],
@@ -21,7 +23,7 @@ class HomePage extends Component {
 
     return (
       <>
-        <h1>Most trending movies this week</h1>
+        <h1 className={styles.title}>Most trending movies at this week</h1>
 
         <MovieList movies={trendingMovies} path={'movies'} />
       </>

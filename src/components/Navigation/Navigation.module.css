@@ -1,0 +1,31 @@
+.nav {
+  padding-bottom: 10px;
+  color: currentColor;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.nav__active {
+  padding-bottom: 10px;
+  color: salmon;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.nav__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav__list > li:not(:last-child) {
+  margin-right: 20px;
+}
+
+nav {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgb(185, 185, 185);
+  border-top: 1px solid rgb(185, 185, 185);
+}

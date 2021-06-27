@@ -1,3 +1,5 @@
+import styles from './MoviePreview.module.css';
+
 const MoviePreview = ({ title, poster_path }) => {
   let IMG_URL = 'https://image.tmdb.org/t/p/original/';
 
@@ -6,10 +8,15 @@ const MoviePreview = ({ title, poster_path }) => {
   }
 
   return (
-    <div>
-      <img src={`${IMG_URL}${poster_path}`} alt={title} width="100" />
-      <p>{title}</p>
-    </div>
+    <>
+      <img
+        className={styles.item__img}
+        src={`${IMG_URL}${poster_path}`}
+        alt={title}
+        width="100"
+      />
+      <p className={styles.item__title}>{title}</p>
+    </>
   );
 };
 
