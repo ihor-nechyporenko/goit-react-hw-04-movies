@@ -49,10 +49,10 @@ class MovieDetailsPage extends Component {
       reviews,
     } = this.state;
 
-    const { match } = this.props;
+    const { match, location } = this.props;
 
     // fix 404 error in console
-    let IMG_URL = 'https://image.tmdb.org/t/p/original/';
+    let IMG_URL = 'https://image.tmdb.org/t/p/w500/';
     if (!poster_path) {
       IMG_URL = '';
     }
@@ -68,7 +68,7 @@ class MovieDetailsPage extends Component {
             className={styles.poster}
             src={`${IMG_URL}${poster_path}`}
             alt={title}
-            width="200"
+            width="250"
           />
           <div className={styles.thumb}>
             <h2>
@@ -94,8 +94,20 @@ class MovieDetailsPage extends Component {
         <p className={styles.additional__info}>Additional information</p>
 
         <Navigation
-          route1={{ link: `${match.url}/cast`, label: 'Cast' }}
-          route2={{ link: `${match.url}/reviews`, label: 'Reviews' }}
+          route1={{
+            link: {
+              pathname: `${match.url}/cast`,
+              state: { ...location.state },
+            },
+            label: 'Cast',
+          }}
+          route2={{
+            link: {
+              pathname: `${match.url}/reviews`,
+              state: { ...location.state },
+            },
+            label: 'Reviews',
+          }}
         />
 
         <Route

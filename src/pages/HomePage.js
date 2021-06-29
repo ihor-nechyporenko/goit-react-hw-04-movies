@@ -11,12 +11,16 @@ class HomePage extends Component {
   };
 
   componentDidMount() {
+    this.fetchTrendingMovies();
+  }
+
+  fetchTrendingMovies = () => {
     api.fetchTrendingMovies().then(response => {
       this.setState({
-        trendingMovies: response.data.results,
+        trendingMovies: [...response.data.results],
       });
     });
-  }
+  };
 
   render() {
     const { trendingMovies } = this.state;

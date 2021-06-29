@@ -9,7 +9,7 @@ class Cast extends Component {
   render() {
     const { cast } = this.props.credits;
 
-    const IMG_URL = 'https://image.tmdb.org/t/p/original/';
+    const IMG_URL = 'https://image.tmdb.org/t/p/w500/';
 
     return (
       <ul className={styles.list}>
