@@ -3,12 +3,16 @@ import queryString from 'query-string';
 
 import SearchBar from '../components/SearchBar';
 import MovieList from '../components/MovieList';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 import api from '../service/movies-api';
 
 class MoviesPage extends Component {
   state = {
     searchQuery: '',
     movies: [],
+    isLoading: false,
+    error: null,
   };
 
   componentDidMount() {
@@ -30,6 +34,7 @@ class MoviesPage extends Component {
     this.setState({
       searchQuery: query,
       movies: [],
+      error: null,
     });
   };
 
@@ -37,11 +42,17 @@ class MoviesPage extends Component {
     const { searchQuery } = this.state;
     const { history, location } = this.props;
 
-    api.fetchSearchingMovies(searchQuery).then(response => {
-      this.setState({
-        movies: response.data.results,
-      });
-    });
+    this.setState({ isLoading: true });
+
+    api
+      .fetchSearchingMovies(searchQuery)
+      .then(response => {
+        this.setState({
+          movies: response.data.results,
+        });
+      })
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ isLoading: false }));
 
     history.push({
       pathname: location.pathname,
@@ -50,12 +61,14 @@ class MoviesPage extends Component {
   }
 
   render() {
-    const { movies } = this.state;
+    const { movies, isLoading, error } = this.state;
 
     return (
       <>
         <SearchBar onSubmit={this.onChangeQuery} />
         <MovieList movies={movies} />
+        {isLoading && <Loader />}
+        {error && <Error />}
       </>
     );
   }

@@ -7,6 +7,8 @@ import Reviews from '../components/Reviews';
 import routes from '../routes';
 import Navigation from '../components/Navigation';
 import Button from '../components/Button';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 import api from '../service/movies-api';
 
 import styles from './MovieDetailsPage.module.css';
@@ -21,14 +23,22 @@ class MovieDetailsPage extends Component {
     vote_average: null,
     credits: null,
     reviews: null,
+    isLoading: false,
+    error: null,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { movieId } = this.props.match.params;
 
-    api.fetchMovieDetails(movieId).then(response => {
-      this.setState({ ...response.data });
-    });
+    this.setState({ isLoading: true });
+
+    api
+      .fetchMovieDetails(movieId)
+      .then(response => {
+        this.setState({ ...response.data });
+      })
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ isLoading: false }));
   }
 
   handleGoBack = () => {
@@ -47,6 +57,8 @@ class MovieDetailsPage extends Component {
       vote_average,
       credits,
       reviews,
+      isLoading,
+      error,
     } = this.state;
 
     const { match, location } = this.props;
@@ -57,39 +69,46 @@ class MovieDetailsPage extends Component {
       IMG_URL = '';
     }
 
+    const render = !isLoading && !error;
     const releseYear = release_date.slice(0, 4);
 
     return (
       <>
         <Button onClick={this.handleGoBack} />
 
-        <div className={styles.container}>
-          <img
-            className={styles.poster}
-            src={`${IMG_URL}${poster_path}`}
-            alt={title}
-            width="250"
-          />
-          <div className={styles.thumb}>
-            <h2>
-              {title} ({releseYear})
-            </h2>
-            <p>User Score: {vote_average}</p>
-            <p className={styles.accent}>Overview</p>
-            <p>{overview}</p>
+        {isLoading && <Loader />}
 
-            <ul className={styles.genres}>
-              <p className={styles.accent + ' ' + styles.genres__title}>
-                Genres
-              </p>
-              <div className={styles.genres__thumb}>
-                {genres.map(({ id, name }) => (
-                  <li key={String(id)}>{name}</li>
-                ))}
-              </div>
-            </ul>
+        {render && (
+          <div className={styles.container}>
+            <img
+              className={styles.poster}
+              src={`${IMG_URL}${poster_path}`}
+              alt={title}
+              width="250"
+            />
+            <div className={styles.thumb}>
+              <h2>
+                {title} ({releseYear})
+              </h2>
+              <p>User Score: {vote_average}</p>
+              <p className={styles.accent}>Overview</p>
+              <p>{overview}</p>
+
+              <ul className={styles.genres}>
+                <p className={styles.accent + ' ' + styles.genres__title}>
+                  Genres
+                </p>
+                <div className={styles.genres__thumb}>
+                  {genres.map(({ id, name }) => (
+                    <li key={String(id)}>{name}</li>
+                  ))}
+                </div>
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
+
+        {error && <Error />}
 
         <p className={styles.additional__info}>Additional information</p>
 
